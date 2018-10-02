@@ -2,135 +2,204 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using UnityEngine.Events;
 
 public class GameController : UtilComponent {
 
-	//public Force force;
 
-	public CountDownComponent cdCarib;
-	public CountDownComponent cdCountDown;
+	//public CountDownComponent cdCountDown;
 
-    [SerializeField] private Context context;
-    [SerializeField] private GameObject objMeterCanvas;
-    [SerializeField] private GameObject objAvatarCanvas;
+    private Context _context;
+    public Context context{
+        get{
+            if(this._context == null){
+                this._context = new Context();
+            }
+            return this._context;
+        }
+    }
 
-    [SerializeField] private GazeButtonInput[] btnsFinish;
 
 	public enum STATUS_ENUM : int{
-		NON,
-		OPEN,
-		CARIB,
-		PREPARE,
+		START,
 		COUNT,
 		PLAY,
-        FINISH
+        FINISH,
+        SHOW_RESLUT
 	}
-	private STATUS_ENUM currentStatus = STATUS_ENUM.NON;
+    private STATUS_ENUM currentStatus = STATUS_ENUM.START;
 
-	[SerializeField] GameObject objOpen;
-	[SerializeField] GameObject objCarib;
-	[SerializeField] GameObject objPrepare;
-	[SerializeField] GameObject objCount;
-    [SerializeField] GameObject objPlay;
+    [SerializeField] private CountDownComponent cdComponent;
+
+    [SerializeField] private GameObject objStart;
+    [SerializeField] private GameObject objCountDown;
+    [SerializeField] private GameObject objPlay;
+
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip audioClip;
+    [SerializeField] private AnswerObjectController answerController;
+    [SerializeField] private Text curretSpeed;
+    //[SerializeField] private Text numMinus;
+    //[SerializeField] private Text correctCount;
+    //[SerializeField] private Text time;
+
+    //[SerializeField] private SordCotroller sordCotroller;
 
 
+    //[SerializeField] private Text x;
+    //[SerializeField] private Text y;
+    //[SerializeField] private Text z;
+
+    [SerializeField] private Transform trResult;
+
+
+    [SerializeField] private StartObject startObject;
+    private ResultModalPresenter resultModalPresenter;
 	// Use this for initialization
-	void Start () {
-		SetActive(this.objOpen, true);
-		SetActive(this.objCarib, false);
-		SetActive(this.objPrepare, false);
-		SetActive(this.objCount, false);
+	private void Start () {
+        this.currentStatus = STATUS_ENUM.START;
+
+        this.answerController.Init(this.context, CallbackCut);
+        //this.sordCotroller.Init(this.context);
+
+        //startObject = ResourceLoader.Instance.Create<StartObject>("Prefabs/CubeStart", trStart);
+        this.startObject.Init(this.context, CallBackStartCut);
+        //startObject.cutEvent += CallBackStartCut;
+
+        SetActive(this.objCountDown, false);
         SetActive(this.objPlay, false);
-        SetActive(this.objMeterCanvas, true);
-        SetActive(this.objAvatarCanvas, false);
-		this.currentStatus = STATUS_ENUM.OPEN;
-        foreach(GazeButtonInput btn in btnsFinish){
-            btn.m_OnClickGaze.AddListener(this.ClickedFinish);
-        }
+
+        resultModalPresenter = ResourceLoader.Instance.Create<ResultModalPresenter>("Prefabs/ResultModal", trResult, false);
 	}
+
+    private void CallBackStartCut(int objNum){
+        this.currentStatus = STATUS_ENUM.COUNT;
+        //this.startObject.WasCut();
+        this.resultModalPresenter.Close();
+        StartCoroutine(this.SetCountDown());
+
+    }
+
+    private void CallbackCut(int objNum){
+        if (this.currentStatus != STATUS_ENUM.PLAY) return;
+        this.answerController.Answer(objNum);
+    }
+
+    private IEnumerator SetCountDown(){
+        //Debug.Log("CountDown");
+
+        yield return new WaitForSeconds(2);
+
+        this.cdComponent.Init(3.0f, this.FinishCountDown, false);
+        SetActive(this.objStart, false);
+        SetActive(this.objCountDown, true);
+        SetActive(this.objPlay, false);
+    }
 	
 	// Update is called once per frame
-	void Update () {
-		switch(this.currentStatus){
-		case STATUS_ENUM.OPEN:
-			this.UpdateOpen();
-			break;
-		case STATUS_ENUM.CARIB:
-			this.UpdateCarib();
-			break;
-		case STATUS_ENUM.PREPARE:
-			this.UpdatePrepare();
-			break;
-		case STATUS_ENUM.COUNT:
-			this.UpdateCount();
-			break;
-		case STATUS_ENUM.PLAY:
-			this.UpdatePlay();
-			break;
-        case STATUS_ENUM.FINISH:
-            this.UpdateFinish();
-            break;
+	private void Update () {
+        OVRInput.Controller activeController = OVRInput.GetActiveController();
+        Quaternion rot = OVRInput.GetLocalControllerRotation(activeController);
+        //SetLabel(this.x, rot.eulerAngles.x.ToString());
+        //SetLabel(this.y, rot.eulerAngles.y.ToString());
+        //SetLabel(this.z, rot.eulerAngles.z.ToString());
+        //Debug.Log("x:" + this.x.text);
+        //Debug.Log("y:" + this.y.text);
+        //Debug.Log("z:" + this.z.text);
+        //if (Input.GetKey(KeyCode.S))
+        //{
+        //    this.CallBackStartCut(0);
+        //    //this.context.SetLongSord(false);
+        //}
+
+        switch(this.currentStatus){
+            case STATUS_ENUM.START:
+                this.UpdateStart();
+    			break;
+    		case STATUS_ENUM.COUNT:
+    			//this.UpdateCount();
+    			break;
+    		case STATUS_ENUM.PLAY:
+    			this.UpdatePlay();
+    			break;
+            case STATUS_ENUM.FINISH:
+                this.UpdateFinish();
+                break;
+            case STATUS_ENUM.SHOW_RESLUT:
+                this.UpdateShowResult();
+                break;
 		}
 	}
-		
+	
 
-	private void UpdateOpen(){
+	private void UpdateStart(){
 	}
 
-	public void ClickSetButton(){
-		this.currentStatus = STATUS_ENUM.CARIB;
-		SetActive(this.objOpen, false);
-		SetActive(this.objCarib, true);
-		this.cdCarib.Initialize(0f, 
-			()=>{
-				this.currentStatus = STATUS_ENUM.PREPARE;
-				SetActive(this.objCarib, false);
-				SetActive(this.objPrepare, true);
-			},
-			false);
-	}
 
-	private void UpdateCarib(){
-		
-	}
+	private void FinishCountDown(){
+		//this.cdCountDown.Init(3f, ()=>
+        //{
+        this.currentStatus = STATUS_ENUM.PLAY;
+        this.context.Init();
+        this.context.StartPlay();
+        //this.answerController.Init(this.context);
+        this.answerController.SetAnswers();
 
-	private void UpdatePrepare(){
-	}
+        //CallSwitchInvoke();
+        //Invoke("CallSwitchInvoke", 0.5f);
 
-	public void ClickStartButton(){
-		this.currentStatus = STATUS_ENUM.COUNT;
-		SetActive(this.objPrepare, false);
-		SetActive(this.objCount, true);
-	}
+        SetActive(this.objStart, false);
+        SetActive(this.objCountDown, false);
+        SetActive(this.objPlay, true);
+        //if (this.audioSource != null)
+        //{
+        //    this.audioSource.PlayOneShot(this.audioClip);
+        //}
 
-	private void UpdateCount(){
-		this.cdCountDown.Initialize(3f, ()=>{
-			this.currentStatus = STATUS_ENUM.PLAY;
-            SetActive(this.objPlay, true);
-            //this.force.isPlay = true;
-            this.context.isStart = true;
-            this.audioSource.PlayOneShot(this.audioClip);
-		},
-		true);
+		//},
+		//true);
 
 	}
 
-	private void UpdatePlay(){
-        if(this.context.isFinish){
+    private void CallSwitchInvoke() {
+        this.context.SwitchInvoke();
+    }
+
+    private void UpdatePlay(){
+        if(!this.context.isPlay){
             this.currentStatus = STATUS_ENUM.FINISH;
-            SetActive(this.objMeterCanvas, false);
-            SetActive(this.objAvatarCanvas, true);
-            //this.force.isPlay = false;
+            return;
         }
+        SetLabel(this.curretSpeed, this.context.speed.ToString("F2"));
+        //SetLabel(this.numMinus, this.context.numMinus.ToString());
+        //SetLabel(this.correctCount, this.context.correctCount.ToString());
+
+        //TimeSpan ts = new TimeSpan(0, 0, Mathf.RoundToInt(this.context.playTime));
+        //SetLabel(this.time, string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds));
+        //this.context.SetLeftTime(Time.deltaTime);
 	}
 
     private void UpdateFinish()
     {
+        this.context.WatchStop();
+        ResultModalModel model = 
+            new ResultModalModel(this.context.correctCount,
+                                 this.context.quizCount,
+                                 this.context.playTime,
+                                 this.startObject,
+                                 this.context);
 
+        resultModalPresenter.Show(model);
+        this.currentStatus = STATUS_ENUM.SHOW_RESLUT;
+        SetActive(this.objStart, true);
+        SetActive(this.objPlay, false);
+
+    }
+
+    private void UpdateShowResult(){
+        
     }
 
 

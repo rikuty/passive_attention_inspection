@@ -14,7 +14,7 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
 	private float WAIT_TIME = 0.5f;
 
-	private float COUNT_TIME = 2f;
+	private float COUNT_TIME = 0.8f;
 
 	private enum COUNT_STATUS : int{
 		NOT_SELECT,
@@ -23,9 +23,9 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 	}
 	private COUNT_STATUS currentStatus = COUNT_STATUS.NOT_SELECT;
 
-	// Event delegates triggered on click.
-	[SerializeField]
-    public UnityEvent m_OnClickGaze = new UnityEvent();
+    // Event delegates triggered on click.
+    [SerializeField]
+    public UnityEvent m_OnClickGaze;
 
 	private bool isPointerInside;
 
@@ -38,8 +38,10 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 	
 	// Update is called once per frame
 	protected void Update () {
+
+
 		if(this.isPointerInside){
-			Debug.Log("CCCCCCC");
+			//Debug.Log("CCCCCCC");
 			this.elapsedTime += Time.deltaTime;
 			if(this.currentStatus == COUNT_STATUS.WAIT && this.elapsedTime > this.WAIT_TIME){
 				this.currentStatus = COUNT_STATUS.COUNT;
@@ -63,14 +65,14 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
 	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
-		Debug.Log("AAAAAAAAAA");
+		//Debug.Log("AAAAAAAAAA");
 		isPointerInside = true;
 		this.currentStatus = COUNT_STATUS.WAIT;
 	}
 
 	public virtual void OnPointerExit(PointerEventData eventData)
 	{
-		Debug.Log("BBBBBBBBBB");
+		//Debug.Log("BBBBBBBBBB");
 		isPointerInside = false;
 	}
 		

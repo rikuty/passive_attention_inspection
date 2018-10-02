@@ -54,12 +54,14 @@ public class CountDownComponent : UtilComponent {
 		}
 	}
 
-	public void Initialize(float second, System.Action callbackFinish, bool isPlayStart){
+	public void Init(float second, System.Action callbackFinish, bool isPlayStart){
         this.count = second;
 		this.callbackFinish = callbackFinish;
 		this.isInitialized = true;
 		this.isPlayStart = isPlayStart;
 		this.callbackFinish = callbackFinish;
+        this.isPast = false;
+        this.elapsedTime = 0f;
 
 		this.SetCountDownText ();
 	}
