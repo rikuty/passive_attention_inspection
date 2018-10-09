@@ -72,7 +72,7 @@ public class AnswerObjectController : UtilComponent
     private void Update()
     {
         if(this.context.isAnswering){
-            this.context.speed += Time.deltaTime;
+            this.context.answerTime += Time.deltaTime;
         }
 
     //    if (!this.enableInput) return;

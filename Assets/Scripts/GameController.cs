@@ -163,31 +163,19 @@ public class GameController : UtilComponent {
 
 	}
 
-    private void CallSwitchInvoke() {
-        this.context.SwitchInvoke();
-    }
 
     private void UpdatePlay(){
         if(!this.context.isPlay){
             this.currentStatus = STATUS_ENUM.FINISH;
             return;
         }
-        SetLabel(this.curretSpeed, this.context.speed.ToString("F2"));
-        //SetLabel(this.numMinus, this.context.numMinus.ToString());
-        //SetLabel(this.correctCount, this.context.correctCount.ToString());
-
-        //TimeSpan ts = new TimeSpan(0, 0, Mathf.RoundToInt(this.context.playTime));
-        //SetLabel(this.time, string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds));
-        //this.context.SetLeftTime(Time.deltaTime);
+        SetLabel(this.curretSpeed, this.context.answerTime.ToString("F2"));
 	}
 
     private void UpdateFinish()
     {
-        this.context.WatchStop();
         ResultModalModel model = 
-            new ResultModalModel(this.context.correctCount,
-                                 this.context.quizCount,
-                                 this.context.playTime,
+            new ResultModalModel(this.context.answerTime,
                                  this.startObject,
                                  this.context);
 
