@@ -17,15 +17,33 @@ public class Context {
     /// </summary>
     public int quizCurrentNum = 0;
 
-
+    /// <summary>
+    /// 現在何周目か
+    /// </summary>
     public int playCount = 0;
 
-
+    /// <summary>
+    /// 現在何問正解か
+    /// </summary>
     public int correctCount = 0;
 
-    [NonSerialized] public bool isPlay = false;
+    public bool isPlay = false;
 
-    [NonSerialized] public bool isAnswering = false;
+    public bool isAnswering = false;
+
+    public bool isFinalQuiz{
+        get{
+            return this.quizNum == quizCurrentNum;
+        }
+    }
+
+    public float sumTime = 0f;
+
+    public float averageTime {
+        get{
+            return sumTime / quizCurrentNum;
+        }
+    }
 
 
 	public void Init()
@@ -40,12 +58,15 @@ public class Context {
         this.isPlay = true;
         this.SetNextAnswers();
         this.correctCount = 0;
+        this.quizCurrentNum = 1;
     }
         
     public void SetNextAnswers()
     {        
+        this.quizCurrentNum++;
 
         this.currentAnswer = UnityEngine.Random.Range(1, 9);
+
 
         this.answerTime = 0f;
         this.isAnswering = true;
@@ -61,6 +82,9 @@ public class Context {
             this.correctCount++;
             result = true;
         }
+
+        this.sumTime += this.answerTime;
+
         return result;
     }
 }

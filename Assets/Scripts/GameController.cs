@@ -38,7 +38,7 @@ public class GameController : UtilComponent {
 
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip audioClip;
+    //[SerializeField] private AudioClip audioClip;
     [SerializeField] private AnswerObjectController answerController;
     [SerializeField] private Text curretSpeed;
     //[SerializeField] private Text numMinus;
@@ -52,11 +52,11 @@ public class GameController : UtilComponent {
     //[SerializeField] private Text y;
     //[SerializeField] private Text z;
 
-    [SerializeField] private Transform trResult;
+    [SerializeField] private ResultModalPresenter resultModalPresenter;
 
 
     [SerializeField] private StartObject startObject;
-    private ResultModalPresenter resultModalPresenter;
+
 	// Use this for initialization
 	private void Start () {
         this.currentStatus = STATUS_ENUM.START;
@@ -71,13 +71,17 @@ public class GameController : UtilComponent {
         SetActive(this.objCountDown, false);
         SetActive(this.objPlay, false);
 
-        resultModalPresenter = ResourceLoader.Instance.Create<ResultModalPresenter>("Prefabs/ResultModal", trResult, false);
+        //resultModalPresenter = ResourceLoader.Instance.Create<ResultModalPresenter>("Prefabs/ResultModal", trResult, false);
+
+        if (this.audioSource != null)
+        {
+            this.audioSource.Play();
+        }
 	}
 
     private void CallBackStartCut(int objNum){
         this.currentStatus = STATUS_ENUM.COUNT;
         //this.startObject.WasCut();
-        this.resultModalPresenter.Close();
         StartCoroutine(this.SetCountDown());
 
     }
@@ -153,10 +157,7 @@ public class GameController : UtilComponent {
         SetActive(this.objStart, false);
         SetActive(this.objCountDown, false);
         SetActive(this.objPlay, true);
-        //if (this.audioSource != null)
-        //{
-        //    this.audioSource.PlayOneShot(this.audioClip);
-        //}
+
 
 		//},
 		//true);
@@ -175,13 +176,12 @@ public class GameController : UtilComponent {
     private void UpdateFinish()
     {
         ResultModalModel model = 
-            new ResultModalModel(this.context.answerTime,
-                                 this.startObject,
+            new ResultModalModel(this.context.averageTime,
                                  this.context);
 
         resultModalPresenter.Show(model);
         this.currentStatus = STATUS_ENUM.SHOW_RESLUT;
-        SetActive(this.objStart, true);
+        //SetActive(this.objStart, true);
         SetActive(this.objPlay, false);
 
     }

@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class ResultModalPresenter : MonoBehaviour
+public class ResultModalPresenter : UtilComponent
 {
-
-    [SerializeField] private Text score;
-    [SerializeField] private Text leftTime;
+    
+    [SerializeField] private Text averageTime;
 
     public void Show(ResultModalModel model) {
-        TimeSpan ts = new TimeSpan(0, 0, Mathf.RoundToInt(model.averageTime));
-        leftTime.text = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+        SetLabel(this.averageTime, model.averageTime.ToString("F2"));
         //model.Start.Init("Start", model.Context);
         this.gameObject.SetActive(true);
     }
 
-    public void Close(){
-        this.gameObject.SetActive(false);
+
+    public void Reload()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

@@ -8,9 +8,12 @@ public class StartObject : UtilComponent
 
     [SerializeField] protected GameObject objCube;
     [SerializeField] protected ParticleSystem exprosion;
-    [SerializeField] protected ChildColliderController childCollider;
+    //[SerializeField] protected ChildColliderController childCollider;
 
     [SerializeField] protected int answer;
+
+    [SerializeField] private AudioSource audioSource;
+    //[SerializeField] private AudioClip audioClip;
 
 
     public Context context;
@@ -29,10 +32,23 @@ public class StartObject : UtilComponent
         SetActive(this.objTutorial, this.context.playCount == 0);
     }
 
+
+    public void Reset()
+    {
+        SetActive(this.objCube, true);
+        this.exprosion.Stop();
+        SetActive(this.objTutorial, this.context.playCount == 0);
+    }
+
+
     public void Gaze(){
         SetActive(this.objCube, false);
         this.cutEvent(this.answer);
         this.exprosion.Play();
+        if (this.audioSource != null)
+        {
+            this.audioSource.PlayOneShot(this.audioSource.clip);
+        }
     }
 
     private void Update()

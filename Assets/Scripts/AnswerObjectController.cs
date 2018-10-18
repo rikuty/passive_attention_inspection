@@ -36,11 +36,13 @@ public class AnswerObjectController : UtilComponent
     {
         for (int i = 0; i < this.answerObjects.Length; i++){
             SetActive(this.answerObjects[i], false);
+            // Unity上用
             this.answerObjects[i].CanAnswer();
         }
 
         //int answerObjNum = UnityEngine.Random.Range(1, 9);
         SetActive(this.answerObjects[this.context.currentAnswer-1].gameObject, true);
+        this.answerObjects[this.context.currentAnswer - 1].Reset();
 
 
         this.enableInput = true;
@@ -51,20 +53,6 @@ public class AnswerObjectController : UtilComponent
         if (!this.enableInput) return;
         this.context.isAnswering = false;
         this.CheckAnswer(objNum);
-        //switch(objNum){
-        //    case 0:
-        //        this.enableInput = false;
-        //        this.CheckAnswer(0);
-        //        break;
-        //    case "Left":
-        //        this.enableInput = false;
-        //        this.CheckAnswer(1);
-        //        break;
-        //    case "Right":
-        //        this.enableInput = false;
-        //        this.CheckAnswer(2);
-        //        break;
-        //}
 
     }
 
@@ -104,7 +92,7 @@ public class AnswerObjectController : UtilComponent
 
     IEnumerator WaitNextObj()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
 
         for (int i = 0; i < this.answerObjects.Length; i++)
         {
@@ -114,10 +102,10 @@ public class AnswerObjectController : UtilComponent
         float rand = UnityEngine.Random.Range(3f, 5f);
         yield return new WaitForSeconds(rand);
 
-        //if (this.context.isFinalQuiz) {
-        //    this.context.isPlay = false;
-        //    yield break;
-        //}
+        if (this.context.isFinalQuiz) {
+            this.context.isPlay = false;
+            yield break;
+        }
         
         this.SetNextQuiz();
     }

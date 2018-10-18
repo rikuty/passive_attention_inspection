@@ -50,6 +50,9 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 				this.img.fillAmount = this.elapsedTime / this.COUNT_TIME;
 			}else if(this.currentStatus == COUNT_STATUS.COUNT && this.elapsedTime >= this.COUNT_TIME){
 				UISystemProfilerApi.AddMarker("Button.onClick", this);
+                this.elapsedTime = 0f;
+                this.img.fillAmount = 0f;
+                this.currentStatus = COUNT_STATUS.NOT_SELECT;
 				m_OnClickGaze.Invoke();
 			}
 		}else{
@@ -57,6 +60,7 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 				this.img = this.GetComponent<Image>();
 			}
 			this.img.fillAmount = 0f;
+            this.currentStatus = COUNT_STATUS.NOT_SELECT;
 			this.elapsedTime = 0f;
 		}
 

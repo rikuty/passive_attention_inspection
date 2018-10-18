@@ -2,12 +2,12 @@
 public class ResultModalModel {
     
     public readonly float averageTime;
-    public readonly StartObject Start;
-    public readonly Context Context;
+    private readonly Context context;
 
-    public ResultModalModel(float averageTime, StartObject startObject, Context context){
-        averageTime = averageTime;
-        Start = startObject;
-        Context = context;
+    public ResultModalModel(float averageTime, Context context){
+        this.averageTime = averageTime;
+        this.context = context;
     }
+
+
 }
