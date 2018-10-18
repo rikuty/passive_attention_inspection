@@ -42,8 +42,13 @@ public class StartObject : UtilComponent
 
 
     public void Gaze(){
-        SetActive(this.objCube, false);
         this.cutEvent(this.answer);
+        this.Explode();
+    }
+
+    public void Explode()
+    {
+        SetActive(this.objCube, false);
         this.exprosion.Play();
         if (this.audioSource != null)
         {

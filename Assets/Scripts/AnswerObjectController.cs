@@ -51,6 +51,7 @@ public class AnswerObjectController : UtilComponent
     public void Answer(int objNum){
         //Debug.Log(objName);
         if (!this.enableInput) return;
+        this.enableInput = false;
         this.context.isAnswering = false;
         this.CheckAnswer(objNum);
 
@@ -61,7 +62,19 @@ public class AnswerObjectController : UtilComponent
     {
         if(this.context.isAnswering){
             this.context.answerTime += Time.deltaTime;
+            if(this.context.answerTime > this.context.limitTime){
+                this.context.answerTime = this.context.limitTime;
+            }
+
+            if (this.context.limitTime <= this.context.answerTime)
+            {
+                this.answerObjects[this.context.currentAnswer - 1].Explode();
+                this.enableInput = false;
+                this.context.isAnswering = false;
+                this.CheckAnswer(-1);
+            }
         }
+
 
     //    if (!this.enableInput) return;
     //    //Debug.Log(Input.GetKey(KeyCode.A));

@@ -10,7 +10,12 @@ public class Context {
     /// <summary>
     /// 設問数
     /// </summary>
-    public int quizNum = 10;
+    public int quizNum = 50;
+
+    /// <summary>
+    /// 制限時間
+    /// </summary>
+    public float limitTime = 10f;
 
     /// <summary>
     /// 現在何問目か
