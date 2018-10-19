@@ -200,7 +200,7 @@ public class OVRGazePointer : MonoBehaviour {
         transform.rotation = newRot;
 
         // record depth so that distance doesn't pop when pointer leaves an object
-        depth = (rayTransform.position - pos).magnitude;
+        depth = (rayTransform.position - pos).magnitude - 0.01f;
 
         //set scale based on depth
         currentScale = depth * depthScaleMultiplier;
