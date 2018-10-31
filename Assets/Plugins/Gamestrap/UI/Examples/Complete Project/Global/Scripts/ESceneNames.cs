@@ -11,8 +11,10 @@ namespace Gamestrap
         Levels,
         Gameplay,
         scene_title,
-		scene_track_1,
-		scene_track_3,
-        scene_track_4
+        scene_inspection,
+        scene_training10,
+        scene_training20,
+        scene_training10minus,
+        scene_training20minus,
     }
 }

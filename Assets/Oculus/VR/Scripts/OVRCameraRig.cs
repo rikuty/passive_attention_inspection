@@ -80,7 +80,10 @@ public class OVRCameraRig : MonoBehaviour
 	/// </summary>
 	public bool useFixedUpdateForTracking = false;
 
-	protected bool _skipUpdate = false;
+    public Vector3 gazeGap = Vector3.zero;
+
+
+    protected bool _skipUpdate = false;
 	protected readonly string trackingSpaceName = "TrackingSpace";
 	protected readonly string trackerAnchorName = "TrackerAnchor";
 	protected readonly string leftEyeAnchorName = "LeftEyeAnchor";
@@ -141,7 +144,7 @@ public class OVRCameraRig : MonoBehaviour
 
 		trackerAnchor.localRotation = tracker.orientation;
 #if UNITY_2017_2_OR_NEWER
-        centerEyeAnchor.localRotation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.CenterEye) * Quaternion.Euler(0f, 10f, 0f);
+        centerEyeAnchor.localRotation = UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.CenterEye) * Quaternion.Euler(gazeGap.x, gazeGap.y, gazeGap.z);
         leftEyeAnchor.localRotation = monoscopic ? centerEyeAnchor.localRotation : UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.LeftEye);
 		rightEyeAnchor.localRotation = monoscopic ? centerEyeAnchor.localRotation : UnityEngine.XR.InputTracking.GetLocalRotation(UnityEngine.XR.XRNode.RightEye);
 #else

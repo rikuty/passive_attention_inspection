@@ -168,6 +168,7 @@ public class GameController : UtilComponent {
     private void UpdatePlay(){
         if(!this.context.isPlay){
             this.currentStatus = STATUS_ENUM.FINISH;
+            this.context.Finish();
             return;
         }
         SetLabel(this.curretSpeed, this.context.answerTime.ToString("F2"));

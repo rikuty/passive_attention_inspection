@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using UnityEngine;
+
+
+
 
 public class Context {
-    
+
     public int currentAnswer { get; private set; }
 
     public float answerTime = 0f;
@@ -42,6 +50,8 @@ public class Context {
         }
     }
 
+    private float[] answerTimes;
+
     public float sumTime = 0f;
 
     public float averageTime {
@@ -56,6 +66,7 @@ public class Context {
         this.isPlay = false;
         this.isAnswering = false;
         this.playCount++;
+        this.answerTimes = new float[quizNum*2];
 	}
 
     // Use this for initialization
@@ -89,7 +100,44 @@ public class Context {
         }
 
         this.sumTime += this.answerTime;
+        this.answerTimes[(this.quizCurrentNum - 1)*2] = this.currentAnswer;
+        this.answerTimes[(this.quizCurrentNum-1)*2+1] = this.answerTime;
 
         return result;
+    }
+
+
+    public void Finish(){
+        // ファイル書き出し
+        // 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
+        // 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
+        //StreamWriter sw;
+        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv", true, Encoding.UTF8);
+        //FileInfo fi;
+        //fi = new FileInfo(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv");
+        //fi = new FileInfo("saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
+        //Debug.Log(Application.persistentDataPath + "/saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
+        //sw = fi.AppendText();
+        // データ出力
+        string line = "";
+        for (int i = 0; i < this.answerTimes.Length; i++)
+        {
+            line +=this.answerTimes[i].ToString("F2")+",";
+            if (i % 2 == 1)
+            {
+                sw.WriteLine(line);
+                line = "";
+            }
+
+        }
+
+        //sw.WriteLine(line);
+
+        sw.WriteLine(this.averageTime.ToString());
+        sw.WriteLine("");
+
+        sw.Flush();
+        // StreamWriterを閉じる
+        sw.Close();
     }
 }

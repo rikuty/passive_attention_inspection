@@ -19,7 +19,12 @@ public class ResultModalPresenter : UtilComponent
 
     public void Reload()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Reset()
+    {
+        Gamestrap.GSAppExampleControl.Instance.LoadScene(Gamestrap.ESceneNames.scene_title);
     }
 
 }

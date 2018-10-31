@@ -112,7 +112,7 @@ public class AnswerObjectController : UtilComponent
             SetActive(this.answerObjects[i].gameObject, false);
         }
 
-        float rand = UnityEngine.Random.Range(3f, 5f);
+        float rand = UnityEngine.Random.Range(2f, 4f);
         yield return new WaitForSeconds(rand);
 
         if (this.context.isFinalQuiz) {
