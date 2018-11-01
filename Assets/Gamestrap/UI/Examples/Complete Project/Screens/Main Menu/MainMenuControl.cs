@@ -28,8 +28,8 @@ namespace Gamestrap
             musicToggle.onValueChanged.AddListener(ToggleMusic);
 
             notificationAnimator = notificationText.GetComponent<Animator>();
-            
-            //GameData gameData = GameData.Instance;
+
+            GameData gameData = GameData.Instance;
             //ID = System.DateTime.Now.ToString("yyMMddHHmm");
             //this.displayID.text = ID;
             
