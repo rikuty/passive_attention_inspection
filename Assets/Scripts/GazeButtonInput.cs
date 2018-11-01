@@ -14,7 +14,9 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
 	private float WAIT_TIME = 0.5f;
 
-	private float COUNT_TIME = 0.8f;
+	private float COUNT_TIME = 0.7f;
+
+    private Context context;
 
 	private enum COUNT_STATUS : int{
 		NOT_SELECT,
@@ -35,20 +37,26 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
 			this.img = this.GetComponent<Image>();
 		}
 	}
-	
-	// Update is called once per frame
-	protected void Update () {
+
+
+    public void Init(Context context)
+    {
+        this.context = context;
+    }
+
+    // Update is called once per frame
+    protected void Update () {
 
 
 		if(this.isPointerInside){
 			//Debug.Log("CCCCCCC");
 			this.elapsedTime += Time.deltaTime;
-			if(this.currentStatus == COUNT_STATUS.WAIT && this.elapsedTime > this.WAIT_TIME){
+			if(this.currentStatus == COUNT_STATUS.WAIT && this.elapsedTime > this.context.WAIT_TIME){
 				this.currentStatus = COUNT_STATUS.COUNT;
 				this.elapsedTime = 0f;
-			}else if(this.currentStatus == COUNT_STATUS.COUNT && this.elapsedTime < this.COUNT_TIME){
-				this.img.fillAmount = this.elapsedTime / this.COUNT_TIME;
-			}else if(this.currentStatus == COUNT_STATUS.COUNT && this.elapsedTime >= this.COUNT_TIME){
+			}else if(this.currentStatus == COUNT_STATUS.COUNT && this.elapsedTime < this.context.COUNT_TIME){
+				this.img.fillAmount = this.elapsedTime / this.context.COUNT_TIME;
+			}else if(this.currentStatus == COUNT_STATUS.COUNT && this.elapsedTime >= this.context.COUNT_TIME){
 				UISystemProfilerApi.AddMarker("Button.onClick", this);
                 this.elapsedTime = 0f;
                 this.img.fillAmount = 0f;

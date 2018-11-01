@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+
 
 namespace Gamestrap
 {
@@ -13,10 +15,8 @@ namespace Gamestrap
 
         public Toggle soundToggle, musicToggle;
 
-        public static string ID;
-
         public Text displayID;
-
+        
 
         public Text notificationText;
         private Animator notificationAnimator;
@@ -28,10 +28,11 @@ namespace Gamestrap
             musicToggle.onValueChanged.AddListener(ToggleMusic);
 
             notificationAnimator = notificationText.GetComponent<Animator>();
-
-            ID = System.DateTime.Now.ToString("yyMMddHHmm");
-            this.displayID.text = ID;
-
+            
+            //GameData gameData = GameData.Instance;
+            //ID = System.DateTime.Now.ToString("yyMMddHHmm");
+            //this.displayID.text = ID;
+            
             this.PlaySceneInspection();
         }
 

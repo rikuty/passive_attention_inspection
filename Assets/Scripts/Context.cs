@@ -23,7 +23,27 @@ public class Context {
     /// <summary>
     /// 制限時間
     /// </summary>
-    public float limitTime = 10f;
+    public float limitTime{
+        get{
+            return WAIT_TIME + COUNT_TIME + ACT_LIMIT_TIME;
+        }
+    }
+
+    /// <summary>
+    /// Gaze待機時間
+    /// </summary>
+    public readonly float WAIT_TIME = 0.5f;
+
+    /// <summary>
+    /// Gaze判定時間
+    /// </summary>
+    public readonly float COUNT_TIME = 0.7f;
+
+    /// <summary>
+    /// アクション制限時間
+    /// </summary>
+    public readonly float ACT_LIMIT_TIME = 5f;
+
 
     /// <summary>
     /// 現在何問目か
@@ -108,36 +128,36 @@ public class Context {
 
 
     public void Finish(){
-        // ファイル書き出し
-        // 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
-        // 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
-        //StreamWriter sw;
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv", true, Encoding.UTF8);
-        //FileInfo fi;
-        //fi = new FileInfo(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv");
-        //fi = new FileInfo("saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
-        //Debug.Log(Application.persistentDataPath + "/saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
-        //sw = fi.AppendText();
-        // データ出力
-        string line = "";
-        for (int i = 0; i < this.answerTimes.Length; i++)
-        {
-            line +=this.answerTimes[i].ToString("F2")+",";
-            if (i % 2 == 1)
-            {
-                sw.WriteLine(line);
-                line = "";
-            }
+        //// ファイル書き出し
+        //// 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
+        //// 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
+        ////StreamWriter sw;
+        //StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv", true, Encoding.UTF8);
+        ////FileInfo fi;
+        ////fi = new FileInfo(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv");
+        ////fi = new FileInfo("saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
+        ////Debug.Log(Application.persistentDataPath + "/saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
+        ////sw = fi.AppendText();
+        //// データ出力
+        //string line = "";
+        //for (int i = 0; i < this.answerTimes.Length; i++)
+        //{
+        //    line +=this.answerTimes[i].ToString("F2")+",";
+        //    if (i % 2 == 1)
+        //    {
+        //        sw.WriteLine(line);
+        //        line = "";
+        //    }
 
-        }
+        //}
 
-        //sw.WriteLine(line);
+        ////sw.WriteLine(line);
 
-        sw.WriteLine(this.averageTime.ToString());
-        sw.WriteLine("");
+        //sw.WriteLine(this.averageTime.ToString());
+        //sw.WriteLine("");
 
-        sw.Flush();
-        // StreamWriterを閉じる
-        sw.Close();
+        //sw.Flush();
+        //// StreamWriterを閉じる
+        //sw.Close();
     }
 }

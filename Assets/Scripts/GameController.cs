@@ -36,6 +36,8 @@ public class GameController : UtilComponent {
     [SerializeField] private GameObject objCountDown;
     [SerializeField] private GameObject objPlay;
 
+    [SerializeField] private GazeButtonInput gazeButtonInput;
+
 
     [SerializeField] private AudioSource audioSource;
     //[SerializeField] private AudioClip audioClip;
@@ -67,6 +69,8 @@ public class GameController : UtilComponent {
         //startObject = ResourceLoader.Instance.Create<StartObject>("Prefabs/CubeStart", trStart);
         this.startObject.Init(this.context, CallBackStartCut);
         //startObject.cutEvent += CallBackStartCut;
+
+        this.gazeButtonInput.Init(this.context);
 
         SetActive(this.objCountDown, false);
         SetActive(this.objPlay, false);
