@@ -12,6 +12,7 @@ namespace Gamestrap
         Gameplay,
         scene_title,
         scene_inspection,
+        scene_training,
         scene_training10,
         scene_training20,
         scene_training10minus,

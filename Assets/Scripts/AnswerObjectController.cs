@@ -62,11 +62,11 @@ public class AnswerObjectController : UtilComponent
     {
         if(this.context.isAnswering){
             this.context.answerTime += Time.deltaTime;
-            if(this.context.answerTime > this.context.limitTime){
-                this.context.answerTime = this.context.limitTime;
+            if(this.context.answerTime > GameData.Instance.limitTime){
+                this.context.answerTime = GameData.Instance.limitTime;
             }
 
-            if (this.context.limitTime <= this.context.answerTime)
+            if (GameData.Instance.limitTime <= this.context.answerTime)
             {
                 this.answerObjects[this.context.currentAnswer - 1].Explode();
                 this.enableInput = false;

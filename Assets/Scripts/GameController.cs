@@ -30,6 +30,9 @@ public class GameController : UtilComponent {
 	}
     private STATUS_ENUM currentStatus = STATUS_ENUM.START;
 
+    [SerializeField] private GameObject avatar;
+
+
     [SerializeField] private CountDownComponent cdComponent;
 
     [SerializeField] private GameObject objStart;
@@ -63,6 +66,8 @@ public class GameController : UtilComponent {
 	private void Start () {
         this.currentStatus = STATUS_ENUM.START;
 
+        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.x, GameData.Instance.y, 0f));
+
         this.answerController.Init(this.context, CallbackCut);
         //this.sordCotroller.Init(this.context);
 
@@ -70,7 +75,7 @@ public class GameController : UtilComponent {
         this.startObject.Init(this.context, CallBackStartCut);
         //startObject.cutEvent += CallBackStartCut;
 
-        this.gazeButtonInput.Init(this.context);
+        //this.gazeButtonInput.Init(this.context);
 
         SetActive(this.objCountDown, false);
         SetActive(this.objPlay, false);
