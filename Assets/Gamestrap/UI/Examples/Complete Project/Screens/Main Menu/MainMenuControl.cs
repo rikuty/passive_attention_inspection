@@ -37,8 +37,9 @@ namespace Gamestrap
             notificationAnimator = notificationText.GetComponent<Animator>();
 
             this.dateTime = DateTime.Now;
-            this.id = this.dateTime.ToString();
-            this.displayID.text = id;
+            //ID = System.DateTime.Now.ToString("yyMMddHHmm");
+            this.id = this.dateTime.ToString("yyMMddHHmm");
+            this.displayID.text = this.id;
 
             //this.gazeButtonInput.Init(this.context);
 
