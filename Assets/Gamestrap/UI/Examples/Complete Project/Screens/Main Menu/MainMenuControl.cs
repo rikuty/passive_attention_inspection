@@ -151,7 +151,7 @@ namespace Gamestrap
             this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
             this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
             this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, -10f, -10f);
+            this.gameData.Init(this.id, this.dateTime, 10f, 10f);
         }
         public void PlaySceneTrainingR20()
         {
@@ -165,7 +165,7 @@ namespace Gamestrap
             this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 255f);
             this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
             this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, -20f, -20f);
+            this.gameData.Init(this.id, this.dateTime, 20f, 20f);
         }
         public void PlaySceneTraininR10minus()
         {
@@ -179,7 +179,7 @@ namespace Gamestrap
             this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
             this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 255f);
             this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 10f, 10f);
+            this.gameData.Init(this.id, this.dateTime, -10f, -10f);
         }
         public void PlaySceneTrainingR20minus()
         {
@@ -193,7 +193,7 @@ namespace Gamestrap
             this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
             this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
             this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 255f);
-            this.gameData.Init(this.id, this.dateTime, 20f, 20f);
+            this.gameData.Init(this.id, this.dateTime, -20f, -20f);
         }
 
         public void AchievementsClick()
