@@ -14,6 +14,8 @@ public class AnswerObjectController : UtilComponent
     //[SerializeField] private Transform parentLeft;
     //[SerializeField] private Transform parentRight;
 
+    [SerializeField] private GameObject avatar;
+
 
     private bool enableInput = true;
 
@@ -105,6 +107,7 @@ public class AnswerObjectController : UtilComponent
 
     IEnumerator WaitNextObj()
     {
+
         yield return new WaitForSeconds(0.7f);
 
         for (int i = 0; i < this.answerObjects.Length; i++)
@@ -125,6 +128,10 @@ public class AnswerObjectController : UtilComponent
 
     private void SetNextQuiz(){
         this.context.SetNextAnswers();
+
+
+        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.startVector.x, GameData.Instance.startVector.y, 0f));
+
         this.SetAnswers();
     }
 }
