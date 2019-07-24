@@ -37,8 +37,9 @@ public class GameData : MonoBehaviour
 
     public string   id              { get; private set; }
     public DateTime dateTime        { get; private set; }
-    public float    x               { get; private set; }
-    public float    y               { get; private set; }
+    public Vector2 startVector      { get; private set; }
+    public Vector2 endVector        { get; private set; }
+    public int trialCount           { get; private set; }
     public Context  context         { get; private set; }
 
 
@@ -56,12 +57,13 @@ public class GameData : MonoBehaviour
     }
 
 
-    public void Init(string id, DateTime dateTime, float x, float y)
+    public void Init(string id, DateTime dateTime, Vector2 startVector, Vector2 endVector, int trialCount)
     {
         this.id = id;
         this.dateTime = dateTime;
-        this.x = x;
-        this.y = y;
+        this.startVector = startVector;
+        this.endVector = endVector;
+        this.trialCount = trialCount;
     }
 
 

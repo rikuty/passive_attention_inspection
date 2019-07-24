@@ -43,158 +43,75 @@ namespace Gamestrap
 
             //this.gazeButtonInput.Init(this.context);
 
-
-            this.PlaySceneInspection();
         }
 
         #region Event Methods Called from the UI
 
-        public RawImage imgInspection;
-        public RawImage imgTraining10;
-        public RawImage imgTraining20;
-        public RawImage imgTraining10minus;
-        public RawImage imgTraining20minus;
-        public RawImage imgTrainingR10;
-        public RawImage imgTrainingR20;
-        public RawImage imgTrainingR10minus;
-        public RawImage imgTrainingR20minus;
+        [SerializeField] RawImage[] startXs;
+        [SerializeField] RawImage[] startYs;
+        [SerializeField] RawImage[] endXs;
+        [SerializeField] RawImage[] endYs;
+        [SerializeField] RawImage[] trialCounts;
+
+        Vector2 startVector = Vector2.zero;
+        Vector2 endVector = Vector2.zero;
+        int trialCount = 32;
 
         private ESceneNames name = ESceneNames.scene_inspection;
 
         public void PlayClick()
         {
+            this.gameData.Init(this.id, this.dateTime, startVector, endVector, trialCount);
             GSAppExampleControl.Instance.LoadScene(this.name);
         }
 
 
-        public void PlaySceneInspection()
+        public void SelectedStartX(int x)
         {
-            this.name = ESceneNames.scene_inspection;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 255f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 0f, 0f);
+            foreach(RawImage img in startXs)
+            {
+                img.color = Color.clear;
+            }
+            startVector = new Vector2((float)x, startVector.y);
         }
 
-        public void PlaySceneTraining10()
+        public void SelectedStartY(int y)
         {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 255f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, -10f, 10f);
+            foreach (RawImage img in startYs)
+            {
+                img.color = Color.clear;
+            }
+            startVector = new Vector2(startVector.x, (float)y);
         }
 
-        public void PlaySceneTraining20()
+        public void SelectedEndX(int x)
         {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 255f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, -20f, 20f);
+            foreach (RawImage img in endXs)
+            {
+                img.color = Color.clear;
+            }
+            endVector = new Vector2((float)x, startVector.y);
         }
-        public void PlaySceneTraining10minus()
+
+        public void SelectedEndY(int y)
         {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 255f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 10f, -10f);
+            foreach (RawImage img in endYs)
+            {
+                img.color = Color.clear;
+            }
+            endVector = new Vector2(startVector.x, (float)y);
         }
-        public void PlaySceneTraining20minus()
+
+        public void SelectedTrialCount(int count)
         {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 255f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 20f, -20f);
+            foreach (RawImage img in trialCounts)
+            {
+                img.color = Color.clear;
+            }
+            trialCount = count;
         }
-        public void PlaySceneTrainingR10()
-        {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 255f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 10f, 10f);
-        }
-        public void PlaySceneTrainingR20()
-        {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 255f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, 20f, 20f);
-        }
-        public void PlaySceneTraininR10minus()
-        {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 255f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 0f);
-            this.gameData.Init(this.id, this.dateTime, -10f, -10f);
-        }
-        public void PlaySceneTrainingR20minus()
-        {
-            this.name = ESceneNames.scene_training;
-            this.imgInspection.color = new Color(this.imgInspection.color.r, this.imgInspection.color.g, this.imgInspection.color.b, 0f);
-            this.imgTraining10.color = new Color(this.imgTraining10.color.r, this.imgTraining10.color.g, this.imgTraining10.color.b, 0f);
-            this.imgTraining20.color = new Color(this.imgTraining20.color.r, this.imgTraining20.color.g, this.imgTraining20.color.b, 0f);
-            this.imgTraining10minus.color = new Color(this.imgTraining10minus.color.r, this.imgTraining10minus.color.g, this.imgTraining10minus.color.b, 0f);
-            this.imgTraining20minus.color = new Color(this.imgTraining20minus.color.r, this.imgTraining20minus.color.g, this.imgTraining20minus.color.b, 0f);
-            this.imgTrainingR10.color = new Color(this.imgTrainingR10.color.r, this.imgTrainingR10.color.g, this.imgTrainingR10.color.b, 0f);
-            this.imgTrainingR20.color = new Color(this.imgTrainingR20.color.r, this.imgTrainingR20.color.g, this.imgTrainingR20.color.b, 0f);
-            this.imgTrainingR10minus.color = new Color(this.imgTrainingR10minus.color.r, this.imgTrainingR10minus.color.g, this.imgTrainingR10minus.color.b, 0f);
-            this.imgTrainingR20minus.color = new Color(this.imgTrainingR20minus.color.r, this.imgTrainingR20minus.color.g, this.imgTrainingR20minus.color.b, 255f);
-            this.gameData.Init(this.id, this.dateTime, -20f, -20f);
-        }
+
+  
 
         public void AchievementsClick()
         {

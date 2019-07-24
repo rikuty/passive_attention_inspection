@@ -66,7 +66,7 @@ public class GameController : UtilComponent {
 	private void Start () {
         this.currentStatus = STATUS_ENUM.START;
 
-        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.x, GameData.Instance.y, 0f));
+        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.startVector.x, GameData.Instance.startVector.y, 0f));
 
         this.answerController.Init(this.context, CallbackCut);
         //this.sordCotroller.Init(this.context);

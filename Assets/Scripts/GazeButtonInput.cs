@@ -25,6 +25,9 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [SerializeField]
     public UnityEvent m_OnClickGaze;
 
+    [SerializeField]
+    private RawImage imgSelected;
+
 	private bool isPointerInside;
 
 	// Use this for initialization
@@ -58,8 +61,11 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 this.img.fillAmount = 0f;
                 this.currentStatus = COUNT_STATUS.NOT_SELECT;
 				m_OnClickGaze.Invoke();
-			}
-		}else{
+                this.imgSelected.color = Color.red;
+
+            }
+        }
+        else{
 			if(this.img == null){
 				this.img = this.GetComponent<Image>();
 			}
