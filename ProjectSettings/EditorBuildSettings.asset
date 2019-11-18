@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/scene_inspection.unity
     guid: 21a66efaeab7a4d478ce440bc1d8299b
-  - enabled: 1
-    path: Assets/Scenes/scene_training.unity
-    guid: c5cee374911dc43bcbd508a8b0470184
   m_configObjects: {}

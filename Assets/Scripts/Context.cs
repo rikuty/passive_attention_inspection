@@ -143,7 +143,7 @@ public class Context
         // 現在のフォルダにsaveData.csvを出力する(決まった場所に出力したい場合は絶対パスを指定してください)
         // 引数説明：第1引数→ファイル出力先, 第2引数→ファイルに追記(true)or上書き(false), 第3引数→エンコード
         //StreamWriter sw;
-        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/csv/saveData_" + GameData.Instance.id + ".csv", true, Encoding.UTF8);
+        StreamWriter sw = new StreamWriter(Application.persistentDataPath + "/saveData_" + GameData.Instance.id + ".csv", true, Encoding.UTF8);
         //FileInfo fi;
         //fi = new FileInfo(Application.persistentDataPath + "/csv/saveData_" + Gamestrap.MainMenuControl.ID + ".csv");
         //fi = new FileInfo("saveData_" + System.DateTime.Now.ToString("yyMMddHHmm") + ".csv");
