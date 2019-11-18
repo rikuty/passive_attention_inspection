@@ -61,7 +61,8 @@ public class GazeButtonInput : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 this.img.fillAmount = 0f;
                 this.currentStatus = COUNT_STATUS.NOT_SELECT;
 				m_OnClickGaze.Invoke();
-                this.imgSelected.color = Color.red;
+                if(this.imgSelected != null)
+                 this.imgSelected.color = Color.red;
 
             }
         }

@@ -66,6 +66,8 @@ public class GameController : UtilComponent {
 	private void Start () {
         this.currentStatus = STATUS_ENUM.START;
 
+        this.context.quizNum = GameData.Instance.trialCount;
+
         this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.startVector.x, GameData.Instance.startVector.y, 0f));
 
         this.answerController.Init(this.context, CallbackCut);
@@ -167,9 +169,6 @@ public class GameController : UtilComponent {
         SetActive(this.objCountDown, false);
         SetActive(this.objPlay, true);
 
-
-		//},
-		//true);
 
 	}
 

@@ -53,8 +53,8 @@ namespace Gamestrap
         [SerializeField] RawImage[] endYs;
         [SerializeField] RawImage[] trialCounts;
 
-        Vector2 startVector = Vector2.zero;
-        Vector2 endVector = Vector2.zero;
+        Vector2 startVector = new Vector2(20f, -20f);
+        Vector2 endVector = new Vector2(-20f, 20f);
         int trialCount = 32;
 
         private ESceneNames name = ESceneNames.scene_inspection;

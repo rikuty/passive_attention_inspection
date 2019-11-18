@@ -129,8 +129,12 @@ public class AnswerObjectController : UtilComponent
     private void SetNextQuiz(){
         this.context.SetNextAnswers();
 
+        int currentCount = this.context.quizCurrentNum;
+        int CountSum = this.context.quizNum;
+        float currentX = GameData.Instance.startVector.x + ((GameData.Instance.endVector.x - GameData.Instance.startVector.x) * ((float)currentCount / (float)CountSum));
+        float currentY = GameData.Instance.startVector.y + ((GameData.Instance.endVector.y - GameData.Instance.startVector.y) * ((float)currentCount / (float)CountSum));
 
-        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(GameData.Instance.startVector.x, GameData.Instance.startVector.y, 0f));
+        this.avatar.transform.rotation = Quaternion.Euler(new Vector3(currentX, currentY, 0f));
 
         this.SetAnswers();
     }
