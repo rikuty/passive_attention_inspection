@@ -75,6 +75,7 @@ public class GameController : UtilComponent {
 
         //startObject = ResourceLoader.Instance.Create<StartObject>("Prefabs/CubeStart", trStart);
         this.startObject.Init(this.context, CallBackStartCut);
+
         //startObject.cutEvent += CallBackStartCut;
 
         //this.gazeButtonInput.Init(this.context);

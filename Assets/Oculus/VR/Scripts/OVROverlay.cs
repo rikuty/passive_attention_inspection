@@ -560,7 +560,8 @@ public class OVROverlay : MonoBehaviour
 		overlay = (currentOverlayType == OverlayType.Overlay);
 		headLocked = false;
 		for (var t = transform; t != null && !headLocked; t = t.parent)
-			headLocked |= (t == headCamera.transform);
+            if(headCamera!=null)
+    			headLocked |= (t == headCamera.transform);
 
 		pose = (headLocked) ? transform.ToHeadSpacePose(headCamera) : transform.ToTrackingSpacePose(headCamera);
 		scale = transform.lossyScale;

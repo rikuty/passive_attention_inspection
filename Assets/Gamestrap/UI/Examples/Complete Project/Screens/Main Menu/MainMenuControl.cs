@@ -59,9 +59,16 @@ namespace Gamestrap
 
         private ESceneNames name = ESceneNames.scene_inspection;
 
-        public void PlayClick()
+        public void PlayNormalGame()
         {
-            this.gameData.Init(this.id, this.dateTime, startVector, endVector, trialCount);
+            this.gameData.Init(this.id, this.dateTime, startVector, endVector, trialCount, false);
+            GSAppExampleControl.Instance.LoadScene(this.name);
+        }
+
+
+        public void PlayControllGame()
+        {
+            this.gameData.Init(this.id, this.dateTime, Vector2.zero, Vector2.zero, 30, true);
             GSAppExampleControl.Instance.LoadScene(this.name);
         }
 

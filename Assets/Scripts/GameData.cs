@@ -41,6 +41,7 @@ public class GameData : MonoBehaviour
     public Vector2 endVector        { get; private set; }
     public int trialCount           { get; private set; }
     public Context  context         { get; private set; }
+    public bool isControll          { get; private set; }
 
 
 
@@ -57,14 +58,16 @@ public class GameData : MonoBehaviour
     }
 
 
-    public void Init(string id, DateTime dateTime, Vector2 startVector, Vector2 endVector, int trialCount)
+    public void Init(string id, DateTime dateTime, Vector2 startVector, Vector2 endVector, int trialCount, bool isControll)
     {
         this.id = id;
         this.dateTime = dateTime;
         this.startVector = startVector;
         this.endVector = endVector;
         this.trialCount = trialCount;
+        this.isControll = isControll;
     }
+
 
 
     public void SetContext(Context context){

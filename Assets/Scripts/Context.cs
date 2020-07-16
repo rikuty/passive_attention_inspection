@@ -16,6 +16,8 @@ public class Context
 
     public float answerTime = 0f;
 
+    public float limitTime = 0f;
+
     /// <summary>
     /// 設問数
     /// </summary>
@@ -86,37 +88,51 @@ public class Context
     {
         this.quizCurrentNum++;
 
-        bool plus = false;
-        foreach (int value in this.randoms)
+        if (!GameData.Instance.isControll)
         {
-            if (value != -1)
+            bool plus = false;
+            foreach (int value in this.randoms)
             {
-                plus = true;
-            }
-        }
-        if(!plus){
-            randoms = new int[] { 1,2,3,4,5,6,7,8};
-        }
-
-        bool hit = false;
-        while (hit == false) {
-            int ran = UnityEngine.Random.Range(1, 9);
-            foreach (int answer in this.randoms)
-            {
-                if (answer == ran)
+                if (value != -1)
                 {
-                    hit = true;
+                    plus = true;
                 }
             }
-            if (hit)
+            if (!plus)
             {
-                randoms[ran - 1] = -1;
-                this.currentAnswer = ran;
+                randoms = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
             }
+
+            bool hit = false;
+            while (hit == false)
+            {
+                int ran = UnityEngine.Random.Range(1, 9);
+                foreach (int answer in this.randoms)
+                {
+                    if (answer == ran)
+                    {
+                        hit = true;
+                    }
+                }
+                if (hit)
+                {
+                    randoms[ran - 1] = -1;
+                    this.currentAnswer = ran;
+                }
+            }
+
+            limitTime = GameData.Instance.limitTime;
         }
+        else
+        {
+            limitTime = UnityEngine.Random.Range(3f, 7f);
+        }
+
 
         this.answerTime = 0f;
         this.isAnswering = true;
+
+        
     }
 
 
