@@ -18,13 +18,15 @@ public class AnswerObjectController : UtilComponent
     [SerializeField] private GameObject avatar;
 
 
-    float limitTime = GameData.Instance.limitTime;
+    float limitTime;
 
 
     private bool enableInput = true;
 
     public void Init(Context context, Action<int> action)
     {
+        limitTime = GameData.Instance.limitTime;
+
         this.context = context;
 
         for (int i = 0; i < this.answerObjects.Length; i++){
@@ -111,7 +113,7 @@ public class AnswerObjectController : UtilComponent
 
     private void CheckAnswer(int answer){
 
-        //bool result = this.context.CheckAnswer(answer);
+        bool result = this.context.CheckAnswer(answer);
 
         if (!GameData.Instance.isControll)
         {
